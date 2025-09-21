@@ -23,13 +23,14 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      // The @ alias points to the project root.
-      // This is the correct setup for your file structure.
+      // 这里的 @/ 别名指向项目根目录。
+      // 它能够解析到 /api, /core, /services 等文件夹。
       "@/*": ["./*"],
-      "@core/*": ["./core/*"],
-      "@services/*": ["./services/*"]
+      // 明确为 types.ts 文件创建一个别名
+      "@types": ["./types.ts"]
     }
   },
-  // Ensure all relevant directories are included in the compilation scope.
+  // 确保所有相关的目录和文件都被包含在编译范围内
+  // "." 表示包含所有在根目录下的文件，例如 App.tsx, index.tsx, types.ts 等
   "include": ["api", "core", "services", "."]
 }
