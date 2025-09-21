@@ -1,34 +1,38 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
     "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
+
+    /* Bundler mode */
     "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "allowJs": true,
-    "jsx": "react-jsx",
-    "paths": {
-      // 在这里添加路径别名，@/ 指向项目根目录
-      "@/*": [
-        "./*"
-      ]
-    },
     "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
-  }
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      // 保持 @/ 指向根目录，这是标准做法
+      "@/*": ["./*"],
+      // 为 'core' 文件夹创建新的别名
+      "@core/*": ["./core/*"],
+      // 为 'services' 文件夹创建新的别名
+      "@services/*": ["./services/*"],
+      // 如果 'types' 文件夹也在根目录，也需要添加别名
+      "@types/*": ["./types/*"]
+    }
+  },
+  // 确保所有相关目录都被包含在编译范围内
+  "include": ["api", "core", "services", "src"]
 }
