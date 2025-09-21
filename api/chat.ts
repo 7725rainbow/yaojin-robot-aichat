@@ -3,7 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import * as character from '@core/characterSheet';
 import { handleDaoistDailyChoice } from '@services/daoistDailyService';
-import { Message, IntimacyLevel, Flow } from '@types/index';
+import { Message, IntimacyLevel, Flow } from '@types'
 
 // 获取环境变量中的API密钥
 const API_KEY = process.env.GEMINI_API_KEY;
