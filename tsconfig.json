@@ -23,16 +23,13 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      // 保持 @/ 指向根目录，这是标准做法
+      // The @ alias points to the project root.
+      // This is the correct setup for your file structure.
       "@/*": ["./*"],
-      // 为 'core' 文件夹创建新的别名
       "@core/*": ["./core/*"],
-      // 为 'services' 文件夹创建新的别名
-      "@services/*": ["./services/*"],
-      // 如果 'types' 文件夹也在根目录，也需要添加别名
-      "@types/*": ["./types/*"]
+      "@services/*": ["./services/*"]
     }
   },
-  // 确保所有相关目录都被包含在编译范围内
-  "include": ["api", "core", "services", "src"]
+  // Ensure all relevant directories are included in the compilation scope.
+  "include": ["api", "core", "services", "."]
 }
