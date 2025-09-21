@@ -1,4 +1,3 @@
-// pages/api/chat.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 // 使用新的别名导入，@/ 代表项目根目录
@@ -21,6 +20,7 @@ const triageModel = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 // 内部函数：直接调用其他 API 路由的逻辑，避免外部 fetch
 async function getWeiboNews(): Promise<any[] | null> {
     try {
+        // In a real project, this logic should be a direct function call, not a fetch.
         const response = await fetch('https://your-domain.com/api/getWeiboNews');
         if (!response.ok) throw new Error('Failed to fetch Weibo news from backend API');
         return await response.json();
@@ -32,6 +32,7 @@ async function getWeiboNews(): Promise<any[] | null> {
 
 async function getDoubanMovies(): Promise<any[] | null> {
     try {
+        // In a real project, this logic should be a direct function call, not a fetch.
         const response = await fetch('https://your-domain.com/api/douban-movie');
         if (!response.ok) throw new Error('Failed to fetch Douban movie info from backend API');
         return await response.json();
@@ -59,7 +60,7 @@ async function runTriage(userInput: string, userName: string, intimacy: Intimacy
     `;
     
     const result = await triageModel.generateContent(triagePrompt);
-    const responseText = result.response.text().trim();  // ✅ 修复：加上 ()
+    const responseText = result.response.text().trim();
     
     try {
         const triageAction = JSON.parse(responseText);
@@ -79,7 +80,7 @@ async function* sendMessageStream(
     flow: Flow
 ): AsyncGenerator<Partial<Message>> {
     try {
-        let systemInstruction = getSystemInstruction(intimacy, userName, flow); 
+        let systemInstruction = getSystemInstruction(intimacy, userName, flow);
         let externalContext: string | null = null;
         let finalPrompt = text;
         
@@ -114,7 +115,7 @@ async function* sendMessageStream(
         });
         
         for await (const chunk of response.stream) {
-            const textDelta = chunk.text();  // ✅ 修复：加上 ()
+            const textDelta = chunk.text();
             if (textDelta) {
                 yield { text: textDelta, isLoading: true };
             }
@@ -199,7 +200,7 @@ const convertToApiMessages = (history: Message[], systemInstruction: string, tex
       currentUserParts.push({
         inlineData: {
           data: imageBase64,
-          mimeType: 'image/jpeg', 
+          mimeType: 'image/jpeg',
         },
       });
     }
@@ -244,7 +245,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
 
         res.writeHead(200, {
-            'Content-Type': 'text/plain', 
+            'Content-Type': 'text/plain',
             'Transfer-Encoding': 'chunked',
         });
 
@@ -277,4 +278,3 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         res.status(500).json({ error: '后端服务处理失败' });
     }
 }
-
