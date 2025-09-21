@@ -5,32 +5,23 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting */
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
-    /* Paths */
     "baseUrl": ".",
     "paths": {
-      // 这里的 @/ 别名指向项目根目录。
-      // 它能够解析到 /api, /core, /services 等文件夹。
       "@/*": ["./*"],
-      // 明确为 types.ts 文件创建一个别名
-      "@types": ["./types.ts"]
+      "@core/*": ["./core/*"],
+      "@services/*": ["./services/*"]
     }
   },
-  // 确保所有相关的目录和文件都被包含在编译范围内
-  // "." 表示包含所有在根目录下的文件，例如 App.tsx, index.tsx, types.ts 等
   "include": ["api", "core", "services", "."]
 }
